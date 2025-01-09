@@ -1,69 +1,100 @@
-import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import  { useState } from "react";
+import {
+  AiOutlineMenu,
+  AiOutlineSearch,
+  AiOutlineClose,
+  AiFillTag,
+} from "react-icons/ai";
+import { BsFillCartFill, BsFillSaveFill } from "react-icons/bs";
+import { TbTruckDelivery } from "react-icons/tb";
+import { MdFavorite, MdHelp } from "react-icons/md";
+import { FaWallet, FaUserFriends } from "react-icons/fa";
 
-const Navbar = () => {
-  // State to manage the navbar's visibility
-  const [nav, setNav] = useState(false);
 
-  // Toggle function to handle the navbar's display
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  // Array containing navigation items
-  const navItems = [
-    { id: 1, text: "Home" },
-    { id: 2, text: "Company" },
-    { id: 3, text: "Resources" },
-    { id: 4, text: "About" },
-    { id: 5, text: "Contact" },
-  ];
-
+function Navbar() {
+  const [nav,setNav]=useState(false)
+  
   return (
-    <div className="bg-black flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white">
-      {/* Logo */}
-      <h1 className="w-full text-3xl font-bold text-[#00df9a]">REACT.</h1>
-
-      {/* Desktop Navigation */}
-      <ul className="hidden md:flex">
-        {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
-          >
-            {item.text}
-          </li>
-        ))}
-      </ul>
-
-      {/* Mobile Navigation Icon */}
-      <div onClick={handleNav} className="block md:hidden">
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+    <div className="max-w-full mx-auto flex justify-between items-center p-4">
+      <div className="flex items-center">
+        <div className="cursor-pointer">
+          <AiOutlineMenu onClick={() => setNav(!nav)} size={30} />
+        </div>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl px-2">
+          UBER <span className="font-bold">EATS</span>{" "}
+        </h1>
+        <div className="hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]">
+          <p className="bg-black text-white rounded-full p-2">delivery</p>
+          <p className="p-2"> pick up</p>
+        </div>
       </div>
+      <div className="bg-gray-200 rounded-full flex items-center px-2 w-[200px] sm:w-[400px] lg:w-[500px]">
+        <AiOutlineSearch size={25} />
+        <input
+          className="bg-transparent p-2 w-full focus:outline-none "
+          type="text"
+          placeholder="search foods"
+        />
+      </div>
+      <button className="bg-black text-white hidden md:flex items-center p-2 rounded-full">
+        <BsFillCartFill size={20} className="mr-2" /> cart
+      </button>
+      {nav ? (
+        <div className="bg-black/80 fixed w-full h-screen z-10 top-0 left-0"></div>
+      ) : (
+        ""
+      )}
 
-      {/* Mobile Navigation Menu */}
-      <ul
+      <div
         className={
           nav
-            ? "fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500"
-            : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
+            ? "fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300"
+            : "fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300"
         }
       >
-        {/* Mobile Logo */}
-        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">REACT.</h1>
-
-        {/* Mobile Navigation Items */}
-        {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600"
-          >
-            {item.text}
-          </li>
-        ))}
-      </ul>
+        <AiOutlineClose
+          onClick={() => setNav(!nav)}
+          size={30}
+          className="absolute right-4 top-4 cursor-pointer"
+        />
+        <h2>
+          UBER <span className="font-bold">EATS</span>
+        </h2>
+        <nav>
+          <ul className="flex flex-col p-4 text-gray-800">
+            <li className="flex text-xl py-4">
+              <TbTruckDelivery size={25} className="mr-4" />
+              orders
+            </li>
+            <li className="flex text-xl py-4">
+              <MdFavorite size={25} className="mr-4" />
+              Favorites
+            </li>
+            <li className="flex text-xl py-4">
+              <FaWallet size={25} className="mr-4" />
+              Wallet
+            </li>
+            <li className="flex text-xl py-4">
+              <MdHelp size={25} className="mr-4" />
+              Help
+            </li>
+            <li className="flex text-xl py-4">
+              <AiFillTag size={25} className="mr-4" />
+              Promotions
+            </li>
+            <li className="flex text-xl py-4">
+              <BsFillSaveFill size={25} className="mr-4" />
+              Best Ones
+            </li>
+            <li className="flex text-xl py-4">
+              <FaUserFriends size={25} className="mr-4" />
+              Invite Friends
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
-};
 
+}
 export default Navbar;
